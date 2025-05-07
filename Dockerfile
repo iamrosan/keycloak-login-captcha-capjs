@@ -3,8 +3,8 @@ FROM maven:3.9.9-eclipse-temurin-21 AS maven
 
 WORKDIR /app
 
-COPY core/pom.xml .
-COPY core/src ./src
+COPY ./pom.xml .
+COPY ./src .
 
 RUN mvn clean package && \
     mkdir -p /result && \
