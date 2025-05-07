@@ -4,9 +4,8 @@ import org.keycloak.authentication.AuthenticationFlowContext;
 import org.keycloak.authentication.Authenticator;
 import org.keycloak.authentication.AuthenticationFlowError;
 import org.keycloak.models.UserModel;
-import javax.ws.rs.core.Response;
+import jakarta.ws.rs.core.Response;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 import org.apache.http.client.fluent.Request;
 import org.apache.http.client.fluent.Form;
@@ -54,7 +53,7 @@ public class CapJsAuthenticator implements Authenticator {
 
             ObjectMapper mapper = new ObjectMapper();
             Map<String, Object> response = mapper.readValue(content.asString(), Map.class);
-            return (Boolean) response.get("success");
+            return Boolean.TRUE.equals(response.get("success"));
         } catch (IOException e) {
             // Log the exception
             return false;
@@ -72,12 +71,16 @@ public class CapJsAuthenticator implements Authenticator {
     }
 
     @Override
-    public boolean configuredFor(org.keycloak.models.KeycloakSession session, org.keycloak.models.RealmModel realm, UserModel user) {
+    public boolean configuredFor(org.keycloak.models.KeycloakSession session, 
+                               org.keycloak.models.RealmModel realm, 
+                               UserModel user) {
         return true;
     }
 
     @Override
-    public void setRequiredActions(org.keycloak.models.KeycloakSession session, org.keycloak.models.RealmModel realm, UserModel user) {
+    public void setRequiredActions(org.keycloak.models.KeycloakSession session, 
+                                  org.keycloak.models.RealmModel realm, 
+                                  UserModel user) {
         // No required actions
     }
 

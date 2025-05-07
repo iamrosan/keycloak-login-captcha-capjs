@@ -3,11 +3,15 @@ package com.capjs.keycloak.captcha;
 import org.keycloak.authentication.Authenticator;
 import org.keycloak.authentication.AuthenticatorFactory;
 import org.keycloak.models.KeycloakSession;
+import org.keycloak.provider.ProviderConfigProperty;
 import org.keycloak.Config.Scope;
+import java.util.Collections;
+import java.util.List;
 
 public class CapJsAuthenticatorFactory implements AuthenticatorFactory {
 
     public static final String PROVIDER_ID = "capjs-authenticator";
+    private static final List<ProviderConfigProperty> configProperties = Collections.emptyList();
 
     @Override
     public Authenticator create(KeycloakSession session) {
@@ -50,12 +54,25 @@ public class CapJsAuthenticatorFactory implements AuthenticatorFactory {
     }
 
     @Override
-    public org.keycloak.provider.ProviderConfigProperty getConfigProperties() {
-        return null;
+    public List<ProviderConfigProperty> getConfigProperties() {
+        return configProperties;
     }
 
     @Override
     public boolean isUserSetupAllowed() {
         return false;
+    }
+
+    @Override
+    public String getReferenceCategory() {
+        return "captcha";
+    }
+
+    @Override
+    public org.keycloak.authentication.AuthenticatorFactory.Requirement[] getRequirementChoices() {
+        return new org.keycloak.authentication.AuthenticatorFactory.Requirement[] {
+            org.keycloak.authentication.AuthenticatorFactory.Requirement.REQUIRED,
+            org.keycloak.authentication.AuthenticatorFactory.Requirement.DISABLED
+        };
     }
 }
