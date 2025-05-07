@@ -69,10 +69,10 @@ public class CapJsAuthenticatorFactory implements AuthenticatorFactory {
     }
 
     @Override
-    public org.keycloak.authentication.AuthenticatorFactory.Requirement[] getRequirementChoices() {
-        return new org.keycloak.authentication.AuthenticatorFactory.Requirement[] {
-            org.keycloak.authentication.AuthenticatorFactory.Requirement.REQUIRED,
-            org.keycloak.authentication.AuthenticatorFactory.Requirement.DISABLED
+    public org.keycloak.authentication.RequiredActionFactory.Requirement[] getRequirementChoices() {
+        return new org.keycloak.authentication.RequiredActionFactory.Requirement[] {
+            org.keycloak.authentication.RequiredActionFactory.Requirement.REQUIRED,
+            org.keycloak.authentication.RequiredActionFactory.Requirement.DISABLED
         };
     }
 }
