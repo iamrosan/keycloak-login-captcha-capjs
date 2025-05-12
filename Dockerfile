@@ -15,7 +15,7 @@ FROM quay.io/keycloak/keycloak:26.0.5
 
 WORKDIR /opt/keycloak 
 
-COPY --from=maven /result/keycloak-capjs-spi.jar /opt/keycloak/providers
+COPY --from=maven /result/keycloak-login-captcha-capjs.jar /opt/keycloak/providers
 
 # COPY themes /opt/keycloak/themes
 
