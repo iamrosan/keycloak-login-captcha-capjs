@@ -1,1 +1,1 @@
-com.capjs.keycloak.captcha.CapJsAuthenticatorFactory
+com.capjs.keycloak.captcha.CapJsUsernamePasswordFormFactory
