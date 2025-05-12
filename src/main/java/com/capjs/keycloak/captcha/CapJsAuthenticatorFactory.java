@@ -1,39 +1,16 @@
 package com.capjs.keycloak.captcha;
 
+import org.keycloak.Config;
 import org.keycloak.authentication.Authenticator;
 import org.keycloak.authentication.AuthenticatorFactory;
-import org.keycloak.authentication.ConfigurableAuthenticatorFactory;
 import org.keycloak.models.AuthenticationExecutionModel;
 import org.keycloak.models.KeycloakSession;
+import org.keycloak.models.KeycloakSessionFactory;
 import org.keycloak.provider.ProviderConfigProperty;
-import org.keycloak.Config.Scope;
-import java.util.Collections;
 import java.util.List;
 
-public class CapJsAuthenticatorFactory implements AuthenticatorFactory, ConfigurableAuthenticatorFactory {
-
-    public static final String PROVIDER_ID = "capjs-authenticator";
-    private static final List<ProviderConfigProperty> configProperties = Collections.emptyList();
-
-    @Override
-    public Authenticator create(KeycloakSession session) {
-        return new CapJsAuthenticator();
-    }
-
-    @Override
-    public void init(Scope config) {
-        // Initialization if needed
-    }
-
-    @Override
-    public void postInit(org.keycloak.models.KeycloakSessionFactory factory) {
-        // Post-initialization if needed
-    }
-
-    @Override
-    public void close() {
-        // Cleanup if needed
-    }
+public class CapJsUsernamePasswordFormFactory implements AuthenticatorFactory {
+    public static final String PROVIDER_ID = "capjs-username-password-form";
 
     @Override
     public String getId() {
@@ -41,13 +18,27 @@ public class CapJsAuthenticatorFactory implements AuthenticatorFactory, Configur
     }
 
     @Override
-    public String getDisplayType() {
-        return "CAP JS CAPTCHA Authenticator";
+    public Authenticator create(KeycloakSession session) {
+        return new CapJsUsernamePasswordForm();
     }
 
     @Override
-    public String getHelpText() {
-        return "Validates CAPTCHA token using CAP JS.";
+    public void init(Config.Scope config) {}
+
+    @Override
+    public void postInit(KeycloakSessionFactory factory) {}
+
+    @Override
+    public void close() {}
+
+    @Override
+    public String getDisplayType() {
+        return "Cap.js Username Password Form";
+    }
+
+    @Override
+    public String getReferenceCategory() {
+        return "login";
     }
 
     @Override
@@ -56,8 +47,8 @@ public class CapJsAuthenticatorFactory implements AuthenticatorFactory, Configur
     }
 
     @Override
-    public List<ProviderConfigProperty> getConfigProperties() {
-        return configProperties;
+    public AuthenticationExecutionModel.Requirement[] getRequirementChoices() {
+        return REQUIREMENT_CHOICES;
     }
 
     @Override
@@ -66,15 +57,12 @@ public class CapJsAuthenticatorFactory implements AuthenticatorFactory, Configur
     }
 
     @Override
-    public String getReferenceCategory() {
-        return "captcha";
+    public String getHelpText() {
+        return "Validates username, password, and Cap.js token.";
     }
 
     @Override
-    public AuthenticationExecutionModel.Requirement[] getRequirementChoices() {
-        return new AuthenticationExecutionModel.Requirement[] {
-            AuthenticationExecutionModel.Requirement.REQUIRED,
-            AuthenticationExecutionModel.Requirement.DISABLED
-        };
+    public List<ProviderConfigProperty> getConfigProperties() {
+        return List.of();
     }
 }
