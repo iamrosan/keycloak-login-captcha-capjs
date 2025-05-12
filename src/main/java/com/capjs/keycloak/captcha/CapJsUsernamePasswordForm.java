@@ -17,8 +17,9 @@ public class CapJsUsernamePasswordForm extends UsernamePasswordForm {
 
     @Override
     public void authenticate(AuthenticationFlowContext context) {
-        if (context.getHttpRequest().getFormParameters().containsKey("capjs_token")) {
-            String token = context.getHttpRequest().getFormParameters().getFirst("capjs_token");
+        MultivaluedMap<String, String> formParameters = context.getHttpRequest().getDecodedFormParameters();
+        if (formParameters.containsKey("capjs_token")) {
+            String token = formParameters.getFirst("capjs_token");
             if (validateCapJsToken(token)) {
                 super.authenticate(context);
             } else {
