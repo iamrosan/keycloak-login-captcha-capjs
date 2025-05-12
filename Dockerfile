@@ -8,7 +8,7 @@ COPY ./src .
 
 RUN mvn clean package && \
     mkdir -p /result && \
-    cp /app/target/keycloak-capjs-spi-*.jar /result/keycloak-capjs-spi.jar
+    cp /app/target/keycloak-login-captcha-capjs-*.jar /result/keycloak-login-captcha-capjs.jar
 
 # keycloak stage
 FROM quay.io/keycloak/keycloak:26.0.5
